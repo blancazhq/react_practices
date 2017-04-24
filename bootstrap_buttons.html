@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Babel Quickstart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="form_div"></div>
+    <script type="text/babel" data-presets="react">
+
+    class Hello extends React.Component{
+      render() {
+        return <div>Hello, {this.props.name}!</div>;
+      }
+    }
+
+    class BsButton extends React.Component{
+      render() {
+        let className = ["btn"];
+        if(this.props.type){
+          className.push("btn-"+ this.props.type)
+        }
+        if(this.props.size){
+          className.push("btn-"+ this.props.size)
+        }
+        return <button className={className.join(" ")}>
+          {this.props.children}
+        </button>;
+      }
+    }
+
+    class BsCheckBox extends React.Component{
+      render() {
+        let type = "checkbox";
+        let value = this.props.value
+        return <div className={type}>
+          <label>
+            <input type={type} value={value}/>
+              {this.props.children}
+          </label>
+        </div>;
+      }
+    }
+
+    class BsRadio extends React.Component{
+      render() {
+        let type = "radio";
+        let name = this.props.name;
+        let value = this.props.value;
+        return <div className={type}>
+          <label>
+            <input type={type} value={value} name={name}/>
+              {this.props.children}
+          </label>
+        </div>;
+      }
+    }
+
+    class BsFormGroup extends React.Component{
+      render() {
+        let label = this.props.label;
+        let type = this.props.type;
+        let name = this.props.name;
+        return <div className="form-group">
+          <label>{label}</label>
+          <input type={type} name={name}/>
+        </div>;
+      }
+    }
+
+    class BsForm extends React.Component{
+      render() {
+        return <form>
+          <BsFormGroup label="What's your name?" type="text" name="name"/>
+          <BsFormGroup label="What's your favorite color?" type="text" name="color"/>
+          <BsFormGroup label="If you were an animal, what animal would you be?" type="text" name="animal"/>
+          <BsCheckBox value="remember">Remember Me</BsCheckBox>
+          <BsRadio name="gender" value="male">Male</BsRadio>
+          <BsRadio name="gender" value="female">Female</BsRadio>
+          <BsButton type="danger" size="lg">Submit!</BsButton>
+        </form>
+      }
+    }
+
+    ReactDOM.render(<Hello name="Albert"/>, document.getElementById('root'));
+
+    ReactDOM.render(<BsForm/>, document.getElementById("form_div"))
+    </script>
+  </body>
+</html>
